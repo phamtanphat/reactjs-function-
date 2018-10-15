@@ -22,33 +22,33 @@ import React , {Component} from 'react';
 // }
 // export default Word;
 
-class Word extends Component{
-    getButton(){
-        if(this.props.wordInfo.isMemorized) return <button className="btn btn-danger">Forgot</button> ;
-        return(
-            <button className="btn btn-success">Memoried</button> 
-        );
-    }
+export default class Word extends Component{
+
     render(){
-        const { wordInfo } = this.props;
-        const {en , vn , isMemorized} = wordInfo;
+        const { word , onremoveword , ontoggleWord} = this.props;
         return(
-        <div className="word">
-            <div className="word-container">
-            <h3 className="text-success">{en}</h3>
-            <h3 className="text-danger">
-                {isMemorized ? '----' : vn}
-            </h3>
+            <div className="word" key={word.id}>
+                <div className="word-container">
+                <h3 className="text-success">{word.en}</h3>
+                <h3 className="text-danger">
+                    {word.isMemorized ? '----' : word.vn}
+                </h3>
+                </div>
+                <div className="btn-container">
+                <button 
+                    className={word.isMemorized ? 'btn btn-danger' : 'btn btn-success'}
+                    onClick={() => ontoggleWord(word.id)}>
+                    {word.isMemorized ? 'Forgot' : 'Memoried'}
+                </button>
+        
+                <button 
+                    className="btn btn-warning"
+                    onClick={() => onremoveword(word.id)}>
+                    Remove
+                </button>
+                </div>
             </div>
-            <div className="btn-container">
-            {this.getButton()}
-    
-            <button className="btn btn-warning" >
-                Remove
-            </button>
-            </div>
-        </div>
         );
     }
 }
-export default Word;
+
